@@ -5,12 +5,6 @@ exports.createFriendsTable = async () => {
     return result ? result : false
 }
 
-
-exports.initFriendList = async (userId, friendId) => {
-    const result = await db.all(`INSERT INTO Friends (userId, friendId) VALUES (${userId}, ${friendId});`)
-    return result ? result : []
-}
-
 exports.getAllFreinds = async () => {
     const result = await db.all(`SELECT * from Friends`)
     return result ? result : []

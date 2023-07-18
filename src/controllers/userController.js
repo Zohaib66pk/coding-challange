@@ -1,16 +1,15 @@
-const db = require('../config/database');
 const httpCode = require("../contsants/httpCodes")
 const respComposer = require("../composers/respComposer")
 const appMessage = require("../contsants/appMessages")
 
-const userService =  require('../services/usersService')
+const userService = require('../services/usersService')
 
 const search = async (req, res) => {
-  
-  const userId = parseInt(req.params.userId)
-  const query = req.params.query
 
   try {
+
+    const userId = parseInt(req.params.userId)
+    const query = req.params.query
 
     const result = await userService.searchUsers(userId, query)
     res.resposeCode = httpCode.SUCCESS
