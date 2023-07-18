@@ -14,10 +14,10 @@ exports.friend = async (req, res) => {
 
     try {
         let result = await friendService.makeFriend(userId, friendId)
-        res.status(httpCode.SUCCESS).send(new respComposer.successResponse(appMessage.SUCCESS_MESSAGE, result))
+        res.status(httpCode.SUCCESS).send(new respComposer.SuccessResponse(appMessage.SUCCESS_MESSAGE, result))
 
     } catch (err) {
-        res.status(httpCode.SERVER_ERROR).send(new respComposer.faliedResponse(appMessage.SUCCESS_MESSAGE, result))
+        res.status(httpCode.SERVER_ERROR).send(new respComposer.ErrorResponse(appMessage.SUCCESS_MESSAGE, result))
     }
 }
 
@@ -28,10 +28,10 @@ exports.unFriend = async (req, res) => {
 
     try {
         const result = await friendService.makeUnFriend(userId, friendId)
-        res.status(httpCode.SUCCESS).send(new respComposer.successResponse(appMessage.SUCCESS_MESSAGE, result))
+        res.status(httpCode.SUCCESS).send(new respComposer.SuccessResponse(appMessage.SUCCESS_MESSAGE, result))
         
     } catch (err) {
-        res.status(httpCode.SERVER_ERROR).send(new respComposer.faliedResponse(err.message, null))
+        res.status(httpCode.SERVER_ERROR).send(new respComposer.ErrorResponse(err.message))
     }
 
 }

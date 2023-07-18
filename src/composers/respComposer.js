@@ -6,16 +6,15 @@ const SuccessResponse = class SuccessResponse{
     this.users =result; 
   }
 };
-module.exports.successResponse = SuccessResponse
+module.exports.SuccessResponse = SuccessResponse
 
 
-const faliedResponse = class faliedResponse{
+const ErrorResponse = class ErrorResponse{
     constructor(errorMessage) {
       this.success = false;
       this.errMsg = errorMessage;
-      this.users = null;
     }
   };
   
-  module.exports.faliedResponse = faliedResponse;
+  module.exports.ErrorResponse = ErrorResponse;
   

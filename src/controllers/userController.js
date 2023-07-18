@@ -14,11 +14,11 @@ const search = async (req, res) => {
 
     const result = await userService.searchUsers(userId, query)
     res.resposeCode = httpCode.SUCCESS
-    res.json(new respComposer.successResponse(appMessage.SUCCESS_MESSAGE, result))
+    res.json(new respComposer.SuccessResponse(appMessage.SUCCESS_MESSAGE, result))
 
   } catch (err) {
     res.statusCode = httpCode.SERVER_ERROR
-    res.json(new respComposer.faliedResponse(err.message))
+    res.json(new respComposer.ErrorResponse(err.message))
   }
 
 

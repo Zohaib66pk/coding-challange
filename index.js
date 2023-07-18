@@ -5,10 +5,10 @@ process.on("uncaughException", (err,data)=>{
 
     if(err){
        console.log("Critical error, yet system keeps running");
-       return;
+       process.exit(1)
     }
  
- })
+ }) 
 
 initApp.init().then(() => app.listen(3001));
 
