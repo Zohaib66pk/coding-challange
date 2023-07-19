@@ -11,7 +11,7 @@ const init = async () => {
 
         const users = [];
         const names = ['foo', 'bar', 'baz'];
-        for (i = 0; i < 270; ++i) {
+        for (i = 0; i < 27000; ++i) {
             let n = i;
             let name = '';
             for (j = 0; j < 3; ++j) {
