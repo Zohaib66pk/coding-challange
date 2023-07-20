@@ -17,7 +17,7 @@ exports.createUser = async (userName) => {
 
 exports.searchUsers = async (userId, query) => {
 
-    let friendsTreeQuery = `WITH RECURSIVE friend_hierarchy(userId, friendId, depth) AS (
+    let sql = `WITH RECURSIVE friend_hierarchy(userId, friendId, depth) AS (
         SELECT userId, friendId, 1 AS depth
         FROM Friends
         WHERE userId = ${userId}
@@ -27,28 +27,13 @@ exports.searchUsers = async (userId, query) => {
         JOIN Friends AS f ON fh.friendId = f.userId
         WHERE fh.depth < 2
       )
-      SELECT fh.friendId, depth as connection
-      FROM friend_hierarchy AS fh
-      WHERE depth > 0`
+      SELECT u.id, u.name,
+      coalesce(fh.depth, 0) AS connection
+      FROM Users AS u LEFT JOIN friend_hierarchy AS fh ON u.id = fh.friendId
+      WHERE u.name LIKE '%${query}%' GROUP BY u.id LIMIT 100`
 
 
-
-    //Get user 1st 20 users
-    let result = await db.all(`SELECT * FROM Users u WHERE u.name LIKE '%${query}%' AND id !=${userId} LIMIT 20;`)
-
-    // Get all friends tree of user with connection level
-    let friendTree = await db.all(friendsTreeQuery)
-
-    //Check if i user exit in friend tree or not
-    for (let i = 0; i < result.length; i++) {
-        let friend = friendTree.filter((e) => e.friendId === result[i].id)
-        if (friend) {
-            result[i]["connection"] = friend[0].connection
-        } else {
-            result[i]["connection"] = 0
-        }
-    }
-
+    let result = await db.all(sql)
     return result ? result : []
 }
 

@@ -1,7 +1,7 @@
 const db = require("../config/database")
 
 exports.createFriendsTable = async () => {
-    const result = await db.all('CREATE TABLE Friends (id INTEGER PRIMARY KEY AUTOINCREMENT, userId int, friendId int, connection int);')
+    const result = await db.all('CREATE TABLE Friends (id INTEGER PRIMARY KEY AUTOINCREMENT, userId int, friendId int);')
     const createIndexUserId = await db.all(`CREATE INDEX userId_index ON Friends(userId)`)
     const createIndexFriendId = await db.all(`CREATE INDEX friendId_index ON Friends(friendId)`)
 
